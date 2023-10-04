@@ -1,0 +1,28 @@
+<!--#todo - move this to a new component-->
+
+<mat-card class="w-80 shadow-2xl p-6">
+  <mat-card-header class="justify-center">
+    <mat-card-title>Upload Your Image</mat-card-title>
+    <mat-card-subtitle class="py-4"
+      >File should be JPEG, png...</mat-card-subtitle
+    >
+  </mat-card-header>
+  <div
+    class="container flex flex-col justify-center items-center bg-slate-200 border border-dashed border-slate-500 p-6"
+  >
+    <img
+      mat-card-image
+      class="d-block w-1/2"
+      src="../assets/image.svg"
+      alt=""
+    />
+    <p class="pt-5">Drag & Drop your image here</p>
+  </div>
+
+  <mat-card-content>
+    <p class="text-center py-4">or</p>
+  </mat-card-content>
+  <mat-card-actions class="flex justify-center">
+    <button mat-raised-button color="primary">Choose a file</button>
+  </mat-card-actions>
+</mat-card>
