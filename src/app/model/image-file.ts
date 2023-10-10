@@ -1,4 +1,4 @@
 export interface ImageFile {
-  file: File;
+  file: File | undefined;
   url: string;
 }
