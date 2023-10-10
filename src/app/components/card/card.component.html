@@ -8,6 +8,8 @@
     >
   </mat-card-header>
   <div
+    appImageUploader
+    (dropFile)="onDropFile($event)"
     class="container flex flex-col justify-center items-center bg-slate-200 border border-dashed border-slate-500 p-6"
   >
     <img
@@ -26,3 +28,7 @@
     <button mat-raised-button color="primary">Choose a file</button>
   </mat-card-actions>
 </mat-card>
+
+<div class="w-40">
+  <img [src]="file?.url" alt="" />
+</div>
