@@ -25,7 +25,15 @@
     <p class="text-center py-4">or</p>
   </mat-card-content>
   <mat-card-actions class="flex justify-center">
-    <button mat-raised-button color="primary">Choose a file</button>
+    <input
+      type="file"
+      class="hidden"
+      #fileUpload
+      (change)="onFileSelected($event)"
+    />
+    <button mat-raised-button color="primary" (click)="fileUpload.click()">
+      Choose a file
+    </button>
   </mat-card-actions>
 </mat-card>
 
