@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import {
+  AngularFireStorage,
+  AngularFireStorageReference,
+  AngularFireUploadTask,
+} from '@angular/fire/compat/storage';
+import { Observable, finalize, map } from 'rxjs';
+
 import { ImageFile } from 'src/app/model/image-file';
 
 @Component({
@@ -8,9 +15,17 @@ import { ImageFile } from 'src/app/model/image-file';
 })
 export class CardComponent {
   file: ImageFile | undefined;
+  ref!: AngularFireStorageReference;
+  upTask!: AngularFireUploadTask;
+  uploadProgress!: Observable<number | undefined>;
+  downloadURL!: Observable<any>;
+  val!: number | undefined;
+
+  constructor(private _fireStorage: AngularFireStorage) {}
 
   onDropFile(file: ImageFile): void {
     this.file = file;
+    this.fileUpload();
   }
 
   onFileSelected(e: any): void {
@@ -20,7 +35,22 @@ export class CardComponent {
         file: file,
         url: window.URL.createObjectURL(file),
       };
+      this.fileUpload();
       console.log(this.file.url);
     }
+  }
+
+  private fileUpload() {
+    const randomId = Math.random().toString(36).substring(2);
+
+    this.ref = this._fireStorage.ref('/images/' + randomId);
+    this.upTask = this.ref.put(this.file?.file);
+    this.uploadProgress = this.upTask.percentageChanges();
+    this.uploadProgress.subscribe((v) => (this.val = v));
+
+    this.upTask
+      .snapshotChanges()
+      .pipe(finalize(() => (this.downloadURL = this.ref.getDownloadURL())))
+      .subscribe();
   }
 }
