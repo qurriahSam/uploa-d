@@ -37,6 +37,16 @@
   </mat-card-actions>
 </mat-card>
 
-<div class="w-40">
-  <img [src]="file?.url" alt="" />
+<mat-card class="" *ngIf="val && val != 100">
+  <mat-card-content>
+    <h2 class="font-bold">progress</h2>
+    <h3>{{ val }}</h3>
+
+    <mat-progress-spinner color="primary" mode="determinate" [value]="val">
+    </mat-progress-spinner>
+  </mat-card-content>
+</mat-card>
+
+<div class="w-40" *ngIf="downloadURL | async; let url">
+  <img [src]="url" alt="image from firestore" />
 </div>
