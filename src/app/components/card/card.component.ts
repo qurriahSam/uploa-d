@@ -20,6 +20,7 @@ export class CardComponent {
   uploadProgress!: Observable<number | undefined>;
   downloadURL!: Observable<any>;
   val!: number | undefined;
+  copyBtnTxt = 'Copy Link';
 
   constructor(private _fireStorage: AngularFireStorage) {}
 
@@ -36,7 +37,6 @@ export class CardComponent {
         url: window.URL.createObjectURL(file),
       };
       this.fileUpload();
-      console.log(this.file.url);
     }
   }
 
@@ -52,5 +52,22 @@ export class CardComponent {
       .snapshotChanges()
       .pipe(finalize(() => (this.downloadURL = this.ref.getDownloadURL())))
       .subscribe();
+  }
+
+  async copyToClipboard(url: string) {
+    try {
+      await navigator.clipboard.writeText(url);
+      this.copyBtnTxt = 'Copied';
+      setTimeout(() => {
+        this.copyBtnTxt = 'Copy Link';
+      }, 2000);
+    } catch (error) {
+      console.error('Failed to copy: ', error);
+    }
+  }
+
+  back() {
+    this.file = undefined;
+    this.val = undefined;
   }
 }
