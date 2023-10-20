@@ -21,6 +21,7 @@ export class CardComponent {
   downloadURL!: Observable<any>;
   val!: number | undefined;
   copyBtnTxt = 'Copy Link';
+  display = 'block';
 
   constructor(private _fireStorage: AngularFireStorage) {}
 
@@ -52,6 +53,9 @@ export class CardComponent {
       .snapshotChanges()
       .pipe(finalize(() => (this.downloadURL = this.ref.getDownloadURL())))
       .subscribe();
+    setTimeout(() => {
+      this.display = 'block';
+    }, 5000);
   }
 
   async copyToClipboard(url: string) {
@@ -69,5 +73,6 @@ export class CardComponent {
   back() {
     this.file = undefined;
     this.val = undefined;
+    this.display = 'none';
   }
 }
