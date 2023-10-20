@@ -1,6 +1,6 @@
 <!--#todo - move this to a new component-->
 
-<mat-card class="w-80 shadow-2xl p-6">
+<mat-card class="w-96 shadow-2xl p-6" *ngIf="!val && !file">
   <mat-card-header class="justify-center">
     <mat-card-title>Upload Your Image</mat-card-title>
     <mat-card-subtitle class="py-4"
@@ -37,16 +37,54 @@
   </mat-card-actions>
 </mat-card>
 
-<mat-card class="" *ngIf="val && val != 100">
+<mat-card class="w-96 shadow-2xl p-6" *ngIf="val && val != 100">
   <mat-card-content>
-    <h2 class="font-bold">progress</h2>
-    <h3>{{ val }}</h3>
-
-    <mat-progress-spinner color="primary" mode="determinate" [value]="val">
-    </mat-progress-spinner>
+    <mat-progress-bar color="primary" mode="determinate" [value]="val">
+    </mat-progress-bar>
   </mat-card-content>
 </mat-card>
 
-<div class="w-40" *ngIf="downloadURL | async; let url">
-  <img [src]="url" alt="image from firestore" />
-</div>
+<mat-card class="w-96 shadow-2xl p-6" *ngIf="file">
+  <div>
+    <button mat-icon-button aria-label="Back button" (click)="back()">
+      <mat-icon
+        class="text-gray-500 font-bold cursor-pointer"
+        aria-hidden="false"
+        aria-label="check icon"
+        fontIcon="arrow_back"
+      ></mat-icon>
+    </button>
+  </div>
+  <div class="flex flex-col justify-center items-center">
+    <mat-icon
+      class="text-lime-600 mb-1"
+      aria-hidden="false"
+      aria-label="check icon"
+      fontIcon="check_circle"
+    ></mat-icon>
+    <mat-card-title class="font-normal">Uploaded Successfully</mat-card-title>
+  </div>
+  <img
+    mat-card-image
+    [src]="file.url"
+    alt="uploaded image"
+    class="rounded-lg my-4"
+  />
+  <mat-card-actions>
+    <div class="flex justify-between w-full pl-2 border rounded-lg">
+      <input
+        type="text"
+        [value]="file.url"
+        class="w-3/5 focus-visible:border-none outline-none"
+      />
+      <button
+        mat-flat-button
+        color="primary"
+        class="rounded-lg"
+        (click)="copyToClipboard(file.url)"
+      >
+        {{ copyBtnTxt }}
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
