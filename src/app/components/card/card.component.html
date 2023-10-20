@@ -1,9 +1,11 @@
 <!--#todo - move this to a new component-->
 
 <mat-card class="w-96 shadow-2xl p-6" *ngIf="!val && !file">
-  <mat-card-header class="justify-center">
-    <mat-card-title>Upload Your Image</mat-card-title>
-    <mat-card-subtitle class="py-4"
+  <mat-card-header class="justify-center text-center">
+    <mat-card-title class="monserrat text-gray-800"
+      >Upload Your Image</mat-card-title
+    >
+    <mat-card-subtitle class="py-4 monserrat"
       >File should be JPEG, png...</mat-card-subtitle
     >
   </mat-card-header>
@@ -18,11 +20,11 @@
       src="../assets/image.svg"
       alt=""
     />
-    <p class="pt-5">Drag & Drop your image here</p>
+    <p class="pt-5 font-medium text-gray-600">Drag & Drop your image here</p>
   </div>
 
   <mat-card-content>
-    <p class="text-center py-4">Or</p>
+    <p class="text-center py-4 font-medium text-gray-800">Or</p>
   </mat-card-content>
   <mat-card-actions class="flex justify-center">
     <input
@@ -39,13 +41,22 @@
 </mat-card>
 
 <mat-card class="w-96 shadow-2xl p-6" *ngIf="val && val != 100">
+  <mat-card-header>
+    <mat-card-title class="monserrat text-gray-800"
+      >Uploading...</mat-card-title
+    >
+  </mat-card-header>
   <mat-card-content>
     <mat-progress-bar color="primary" mode="determinate" [value]="val">
     </mat-progress-bar>
   </mat-card-content>
 </mat-card>
 
-<mat-card class="w-96 shadow-2xl p-6" *ngIf="file">
+<mat-card
+  class="w-96 shadow-2xl p-6"
+  *ngIf="downloadURL | async as url"
+  [style.display]="display"
+>
   <div>
     <button mat-icon-button aria-label="Back button" (click)="back()">
       <mat-icon
@@ -67,7 +78,7 @@
   </div>
   <img
     mat-card-image
-    [src]="file.url"
+    [src]="url"
     alt="uploaded image"
     class="rounded-lg my-4"
   />
@@ -75,14 +86,14 @@
     <div class="flex justify-between w-full pl-2 border rounded-lg">
       <input
         type="text"
-        [value]="file.url"
+        [value]="url"
         class="w-3/5 focus-visible:border-none outline-none"
       />
       <button
         mat-flat-button
         color="primary"
         class="rounded-lg"
-        (click)="copyToClipboard(file.url)"
+        (click)="copyToClipboard(url)"
       >
         {{ copyBtnTxt }}
       </button>
