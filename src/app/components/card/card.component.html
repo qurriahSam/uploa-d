@@ -22,7 +22,7 @@
   </div>
 
   <mat-card-content>
-    <p class="text-center py-4">or</p>
+    <p class="text-center py-4">Or</p>
   </mat-card-content>
   <mat-card-actions class="flex justify-center">
     <input
@@ -30,6 +30,7 @@
       class="hidden"
       #fileUpload
       (change)="onFileSelected($event)"
+      access=".png,.jpg"
     />
     <button mat-raised-button color="primary" (click)="fileUpload.click()">
       Choose a file
