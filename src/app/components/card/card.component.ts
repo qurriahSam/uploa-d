@@ -4,9 +4,11 @@ import {
   AngularFireStorageReference,
   AngularFireUploadTask,
 } from '@angular/fire/compat/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, finalize, map } from 'rxjs';
 
 import { ImageFile } from 'src/app/model/image-file';
+import { WarnComponent } from '../warn/warn.component';
 
 @Component({
   selector: 'app-card',
@@ -23,7 +25,10 @@ export class CardComponent {
   copyBtnTxt = 'Copy Link';
   display = 'block';
 
-  constructor(private _fireStorage: AngularFireStorage) {}
+  constructor(
+    private _fireStorage: AngularFireStorage,
+    private _snackBar: MatSnackBar
+  ) {}
 
   onDropFile(file: ImageFile): void {
     this.file = file;
@@ -88,9 +93,16 @@ export class CardComponent {
     console.log(filePath);
 
     if (!allowedExtensions.exec(filePath.name)) {
-      alert('Invalid file type');
+      this.warnSnackBar();
       return false;
     }
     return true;
+  }
+
+  private warnSnackBar() {
+    this._snackBar.openFromComponent(WarnComponent, {
+      verticalPosition: 'top',
+      duration: 5000,
+    });
   }
 }

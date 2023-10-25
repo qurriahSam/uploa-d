@@ -1,0 +1,14 @@
+<div class="flex justify-between">
+  <span matSnackBarLabel class="pt-16">Invalid file type!</span>
+  <span matSnackBarActions>
+    <button
+      mat-icon-button
+      matSnackBarAction
+      color="warn"
+      aria-label="close button icon"
+      (click)="warnBarRef.dismissWithAction()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+</div>

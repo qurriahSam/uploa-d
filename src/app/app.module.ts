@@ -12,12 +12,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CardComponent } from './components/card/card.component';
 import { ImageUploaderDirective } from './directives/image-uploader.directive';
+import { WarnComponent } from './components/warn/warn.component';
 
 @NgModule({
-  declarations: [AppComponent, CardComponent, ImageUploaderDirective],
+  declarations: [AppComponent, CardComponent, ImageUploaderDirective, WarnComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -27,6 +29,7 @@ import { ImageUploaderDirective } from './directives/image-uploader.directive';
     MatButtonModule,
     MatProgressBarModule,
     MatIconModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
