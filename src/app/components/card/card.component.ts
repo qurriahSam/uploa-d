@@ -42,20 +42,26 @@ export class CardComponent {
   }
 
   private fileUpload() {
-    const randomId = Math.random().toString(36).substring(2);
+    console.log(this.fileValidation(this.file?.file));
 
-    this.ref = this._fireStorage.ref('/images/' + randomId);
-    this.upTask = this.ref.put(this.file?.file);
-    this.uploadProgress = this.upTask.percentageChanges();
-    this.uploadProgress.subscribe((v) => (this.val = v));
+    if (this.fileValidation(this.file?.file)) {
+      const randomId = Math.random().toString(36).substring(2);
 
-    this.upTask
-      .snapshotChanges()
-      .pipe(finalize(() => (this.downloadURL = this.ref.getDownloadURL())))
-      .subscribe();
-    setTimeout(() => {
-      this.display = 'block';
-    }, 5000);
+      this.ref = this._fireStorage.ref('/images/' + randomId);
+      this.upTask = this.ref.put(this.file?.file);
+      this.uploadProgress = this.upTask.percentageChanges();
+      this.uploadProgress.subscribe((v) => (this.val = v));
+
+      this.upTask
+        .snapshotChanges()
+        .pipe(finalize(() => (this.downloadURL = this.ref.getDownloadURL())))
+        .subscribe();
+      setTimeout(() => {
+        this.display = 'block';
+      }, 5000);
+    } else {
+      this.file = undefined;
+    }
   }
 
   async copyToClipboard(url: string) {
@@ -74,5 +80,17 @@ export class CardComponent {
     this.file = undefined;
     this.val = undefined;
     this.display = 'none';
+  }
+
+  private fileValidation(filePath: any) {
+    let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+    console.log(filePath);
+
+    if (!allowedExtensions.exec(filePath.name)) {
+      alert('Invalid file type');
+      return false;
+    }
+    return true;
   }
 }
