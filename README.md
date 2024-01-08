@@ -15,10 +15,6 @@
     <a href="https://github.com/qurriahSam/uploa-d.git">
       Solution
     </a>
-    <span> | </span>
-    <a href="https://legacy.devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx">
-      Challenge
-    </a>
   </h3>
 </div>
 
