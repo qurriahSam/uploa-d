@@ -51,6 +51,12 @@ Upload is a user-friendly Image Uploader application designed to make image shar
 
 This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://legacy.devchallenges.io/challenges/O2iGT9yBd6xZBrOcVirx) was to build an application to complete the given user stories.
 
+- Enable drag-and-drop functionality for users to easily upload images.
+- Provide an option for users to select images directly from their local folders.
+- Display a loader to indicate progress while uploading images.
+- Upon successful upload, showcase the image for user preview and copying.
+- Users can copy the provided url to the clipboard for convenient sharing or use elsewhere.
+
 ## How To Use
 
 <!-- Example: -->
